@@ -9,14 +9,28 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Dummy login
-    if (username === 'admin' && password === 'admin') {
-      localStorage.setItem('adminToken', 'dummy-token');
-      navigate('/admin/dashboard');
-    } else {
-      alert('帳號或密碼錯誤 (請輸入 admin / admin)');
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('adminToken', data.token);
+        navigate('/admin/dashboard');
+      } else {
+        alert(data.error || '帳號或密碼錯誤');
+      }
+    } catch (err) {
+      alert('無法連線到伺服器');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -65,9 +79,10 @@ export default function Login() {
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 transition-all hover:scale-[1.02] mt-6"
+              disabled={isLoading}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 transition-all hover:scale-[1.02] mt-6 disabled:opacity-70 disabled:hover:scale-100"
             >
-              登入
+              {isLoading ? '登入中...' : '登入'}
             </button>
           </form>
         </GlassCard>

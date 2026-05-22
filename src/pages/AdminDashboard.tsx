@@ -17,8 +17,18 @@ export default function AdminDashboard() {
     }
 
     async function fetchDashboard() {
+      const token = localStorage.getItem('adminToken');
       try {
-        const res = await fetch('/api/admin/dashboard');
+        const res = await fetch('/api/admin/dashboard', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (res.status === 401) {
+          localStorage.removeItem('adminToken');
+          navigate('/admin/login');
+          return;
+        }
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -41,7 +51,8 @@ export default function AdminDashboard() {
   }
 
   const handleDownload = () => {
-    window.open('/api/admin/reports/clicks.xlsx', '_blank');
+    const token = localStorage.getItem('adminToken');
+    window.open(`/api/admin/reports/clicks.xlsx?token=${token}`, '_blank');
   };
 
   return (

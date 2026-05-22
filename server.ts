@@ -7,6 +7,7 @@ import { open } from 'sqlite';
 import exceljs from 'exceljs';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -173,7 +174,34 @@ async function startServer() {
     }
   });
 
-  app.get('/api/admin/dashboard', async (req, res) => {
+  // --- Admin API Routes ---
+  
+  const JWT_SECRET = process.env.JWT_SECRET || 'development_fallback_secret';
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
+
+  app.post('/api/admin/login', (req, res) => {
+    const { username, password } = req.body;
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '8h' });
+      res.json({ token });
+    } else {
+      res.status(401).json({ error: '帳號或密碼錯誤' });
+    }
+  });
+
+  const authenticateAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1] || req.query.token as string;
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+    try {
+      jwt.verify(token, JWT_SECRET);
+      next();
+    } catch (err) {
+      res.status(401).json({ error: 'Invalid token' });
+    }
+  };
+
+  app.get('/api/admin/dashboard', authenticateAdmin, async (req, res) => {
     try {
       const totalClicks = await db.get('SELECT COUNT(*) as count FROM click_logs');
       const todayClicks = await db.get('SELECT COUNT(*) as count FROM click_logs WHERE date(clicked_at) = date("now")');
@@ -193,7 +221,7 @@ async function startServer() {
     }
   });
 
-  app.get('/api/admin/reports/clicks.xlsx', async (req, res) => {
+  app.get('/api/admin/reports/clicks.xlsx', authenticateAdmin, async (req, res) => {
     try {
       const bots = await db.all(`
         SELECT b.name, c.name as category, b.ai_platform, b.creator, b.click_count, b.target_url
