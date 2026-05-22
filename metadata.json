@@ -1,0 +1,6 @@
+{
+  "name": "門市 AI 機器人導覽平台",
+  "description": "門市 AI 機器人入口平台與成效追蹤後台，支援使用數據統計與熱門卡片導覽",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
