@@ -8,6 +8,7 @@ import exceljs from 'exceljs';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
+import compression from 'compression';
 
 dotenv.config();
 
@@ -28,10 +29,6 @@ async function setupDatabase() {
   });
 
   await db.exec(`
-    DROP TABLE IF EXISTS categories;
-    DROP TABLE IF EXISTS ai_bots;
-    DROP TABLE IF EXISTS click_logs;
-
     CREATE TABLE IF NOT EXISTS categories (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
@@ -54,6 +51,10 @@ async function setupDatabase() {
       bot_id TEXT,
       clicked_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE INDEX IF NOT EXISTS idx_bots_category ON ai_bots(category_id);
+    CREATE INDEX IF NOT EXISTS idx_bots_click ON ai_bots(click_count DESC);
+    CREATE INDEX IF NOT EXISTS idx_logs_clicked_at ON click_logs(clicked_at);
   `);
 
   // Seed data
@@ -108,6 +109,7 @@ async function setupDatabase() {
 
 async function startServer() {
   const app = express();
+  app.use(compression());
   app.use(express.json());
 
   const db = await setupDatabase();
@@ -258,7 +260,7 @@ async function startServer() {
   const distPath = path.join(__dirname, 'dist');
   if (fs.existsSync(distPath)) {
     console.log('Serving static files from dist');
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, { maxAge: '1d' }));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });

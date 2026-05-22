@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ChevronRight, BarChart3, Scissors, ShoppingBag, PenTool, MessageSquare, Bot, Star } from 'lucide-react';
 import { GlassCard } from '@/src/lib/utils';
@@ -51,21 +51,24 @@ export default function Home() {
     window.open(targetUrl, '_blank');
   };
 
-  let filteredBots = bots.filter(bot => {
-    const matchesSearch = searchTerm === '' 
-      || bot.name.toLowerCase().includes(searchTerm.toLowerCase())
-      || bot.summary?.toLowerCase().includes(searchTerm.toLowerCase())
-      || bot.creator?.toLowerCase().includes(searchTerm.toLowerCase());
-      
-    const matchesCategory = activeCategory === 'top5' ? true : activeCategory ? bot.category_id === activeCategory : true;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredBots = useMemo(() => {
+    let filtered = bots.filter(bot => {
+      const matchesSearch = searchTerm === '' 
+        || bot.name.toLowerCase().includes(searchTerm.toLowerCase())
+        || bot.summary?.toLowerCase().includes(searchTerm.toLowerCase())
+        || bot.creator?.toLowerCase().includes(searchTerm.toLowerCase());
+        
+      const matchesCategory = activeCategory === 'top5' ? true : activeCategory ? bot.category_id === activeCategory : true;
+      return matchesSearch && matchesCategory;
+    });
 
-  if (activeCategory === 'top5') {
-    filteredBots = [...filteredBots].sort((a, b) => (b.click_count || 0) - (a.click_count || 0)).slice(0, 5);
-  }
+    if (activeCategory === 'top5') {
+      filtered = [...filtered].sort((a, b) => (b.click_count || 0) - (a.click_count || 0)).slice(0, 5);
+    }
+    return filtered;
+  }, [bots, searchTerm, activeCategory]);
 
-  const featuredBots = bots.filter(b => b.is_featured);
+  const featuredBots = useMemo(() => bots.filter(b => b.is_featured), [bots]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-12 flex flex-col gap-10">
@@ -159,8 +162,17 @@ export default function Home() {
         </div>
         
         {loading ? (
-          <div className="flex justify-center p-12">
-            <div className="w-8 h-8 rounded-full border-4 border-blue-200 border-t-blue-500 animate-spin"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <GlassCard key={i} className="animate-pulse h-64 flex flex-col justify-between">
+                <div>
+                  <div className="w-14 h-14 bg-slate-200/50 rounded-2xl mb-6"></div>
+                  <div className="h-6 bg-slate-200/50 rounded-md w-3/4 mb-3"></div>
+                  <div className="h-4 bg-slate-200/50 rounded-md w-full mb-2"></div>
+                  <div className="h-4 bg-slate-200/50 rounded-md w-5/6"></div>
+                </div>
+              </GlassCard>
+            ))}
           </div>
         ) : filteredBots.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
