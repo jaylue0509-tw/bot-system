@@ -81,7 +81,7 @@ export default function Home() {
             <h1 
               className="text-5xl md:text-7xl font-black tracking-widest relative z-10 uppercase"
               style={{
-                fontFamily: "'Black Han Sans', sans-serif",
+                fontFamily: "'ChenYuluoyan', sans-serif",
                 color: "#ffffff", // 白字
                 WebkitTextStroke: "3px #000000", // 黑邊框
                 paintOrder: "stroke fill",
@@ -107,7 +107,7 @@ export default function Home() {
             <h1 
               className="text-5xl md:text-7xl font-black tracking-widest absolute top-0 left-0 z-20 pointer-events-none uppercase"
               style={{
-                fontFamily: "'Black Han Sans', sans-serif",
+                fontFamily: "'ChenYuluoyan', sans-serif",
                 color: "#ffffff",
                 letterSpacing: "0.1em"
               }}
