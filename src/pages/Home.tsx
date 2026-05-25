@@ -76,37 +76,36 @@ export default function Home() {
       {/* Header & Hero */}
       <header className="flex flex-col items-center justify-center text-center mt-8 mb-6 relative">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="relative inline-block mb-4 mt-4">
-            {/* 裝飾星星 */}
-            <Star className="absolute -top-4 -left-6 w-6 h-6 text-yellow-400 fill-yellow-400 rotate-12 drop-shadow-md" />
-            <Star className="absolute -bottom-2 -right-8 w-8 h-8 text-yellow-400 fill-yellow-400 -rotate-12 drop-shadow-md" />
-            <Star className="absolute top-2 -right-4 w-4 h-4 text-yellow-300 fill-yellow-300 rotate-45" />
-            <div className="absolute -left-4 bottom-2 w-3 h-3 bg-red-400 rounded-full border-2 border-white"></div>
+          <div className="relative inline-block mb-4 mt-4 px-12 py-8 bg-slate-900 rounded-3xl overflow-hidden border-2 border-[#14b8a6] shadow-[0_0_20px_rgba(20,184,166,0.3)] skew-x-[-2deg]">
+            {/* 背景幾何裝飾 */}
+            <div className="absolute top-0 left-0 w-16 h-4 bg-[#14b8a6]"></div>
+            <div className="absolute bottom-0 right-0 w-24 h-2 bg-[#14b8a6]"></div>
+            <div className="absolute top-4 right-4 w-4 h-4 rounded-full border-2 border-[#14b8a6]"></div>
             
             <h1 
-              className="text-5xl md:text-7xl font-bold tracking-widest relative z-10"
+              className="text-5xl md:text-7xl font-black tracking-widest relative z-10 uppercase"
               style={{
-                fontFamily: "'Ma Shan Zheng', cursive",
-                color: "#c60000",
-                WebkitTextStroke: "4px white",
-                textShadow: "0px 4px 10px rgba(0,0,0,0.15)",
-                paintOrder: "stroke fill" // Ensures stroke is drawn outside the fill
-              }}
-            >
-              門市AI機器人入口
-            </h1>
-            {/* 重複疊加一層無邊框的文字，確保紅字在白邊之上（針對不支援 paint-order 的瀏覽器保底寫法） */}
-            <h1 
-              className="text-5xl md:text-7xl font-bold tracking-widest absolute top-0 left-0 z-20 pointer-events-none"
-              style={{
-                fontFamily: "'Ma Shan Zheng', cursive",
-                color: "#c60000",
+                fontFamily: "'Black Han Sans', sans-serif",
+                color: "#ffffff",
+                letterSpacing: "0.1em",
+                textShadow: `
+                  1px 1px 0 #14b8a6,
+                  2px 2px 0 #14b8a6,
+                  3px 3px 0 #14b8a6,
+                  4px 4px 0 #14b8a6,
+                  5px 5px 0 #14b8a6,
+                  6px 6px 0 #14b8a6,
+                  7px 7px 0 #14b8a6,
+                  8px 8px 0 #14b8a6,
+                  9px 9px 0 #14b8a6,
+                  10px 10px 0 #14b8a6
+                `
               }}
             >
               門市AI機器人入口
             </h1>
           </div>
-          <p className="text-lg text-slate-600 max-w-2xl mt-2 font-medium">
+          <p className="text-lg text-slate-600 max-w-2xl mt-4 font-bold">
             提供各式 AI 小助手，涵蓋營運管理、美容服務、銷售技巧等工作場景。
           </p>
         </motion.div>
