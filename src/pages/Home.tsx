@@ -76,17 +76,15 @@ export default function Home() {
       {/* Header & Hero */}
       <header className="flex flex-col items-center justify-center text-center mt-8 mb-6 relative">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="relative inline-block mb-4 mt-4 px-12 py-8 bg-slate-900 rounded-3xl overflow-hidden border-2 border-[#14b8a6] shadow-[0_0_20px_rgba(20,184,166,0.3)] skew-x-[-2deg]">
-            {/* 背景幾何裝飾 */}
-            <div className="absolute top-0 left-0 w-16 h-4 bg-[#14b8a6]"></div>
-            <div className="absolute bottom-0 right-0 w-24 h-2 bg-[#14b8a6]"></div>
-            <div className="absolute top-4 right-4 w-4 h-4 rounded-full border-2 border-[#14b8a6]"></div>
+          <div className="relative inline-block mb-4 mt-4">
             
             <h1 
               className="text-5xl md:text-7xl font-black tracking-widest relative z-10 uppercase"
               style={{
                 fontFamily: "'Black Han Sans', sans-serif",
-                color: "#ffffff",
+                color: "#ffffff", // 白字
+                WebkitTextStroke: "3px #000000", // 黑邊框
+                paintOrder: "stroke fill",
                 letterSpacing: "0.1em",
                 textShadow: `
                   1px 1px 0 #14b8a6,
@@ -104,6 +102,19 @@ export default function Home() {
             >
               門市AI機器人入口
             </h1>
+            
+            {/* 重複疊加一層無邊框的白字，確保在某些瀏覽器上黑邊不會吃掉白字 */}
+            <h1 
+              className="text-5xl md:text-7xl font-black tracking-widest absolute top-0 left-0 z-20 pointer-events-none uppercase"
+              style={{
+                fontFamily: "'Black Han Sans', sans-serif",
+                color: "#ffffff",
+                letterSpacing: "0.1em"
+              }}
+            >
+              門市AI機器人入口
+            </h1>
+
           </div>
           <p className="text-lg text-slate-600 max-w-2xl mt-4 font-bold">
             提供各式 AI 小助手，涵蓋營運管理、美容服務、銷售技巧等工作場景。
