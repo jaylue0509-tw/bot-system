@@ -78,13 +78,14 @@ export default function Home() {
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           
           <div className="relative inline-block mt-4 mb-8">
-            {/* Outer black stroke (sticker edge) */}
+            {/* Outer stroke (sticker edge) & Gray Shadow */}
             <h1 
               className="text-5xl md:text-7xl tracking-wider absolute top-0 left-0 z-10"
               style={{
                 fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
                 color: "#1e293b",
                 WebkitTextStroke: "12px #1e293b", 
+                textShadow: "6px 8px 0px #9ca3af", /* 灰色文字陰影 */
               }}
             >
               門市AI機器人入口
