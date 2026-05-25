@@ -76,9 +76,44 @@ export default function Home() {
       {/* Header & Hero */}
       <header className="flex flex-col items-center justify-center text-center mt-8 mb-6">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
-            門市 AI 機器人入口
-          </h1>
+          
+          <div className="relative inline-block mt-4 mb-8">
+            {/* Outer black stroke (sticker edge) */}
+            <h1 
+              className="text-5xl md:text-7xl tracking-wider absolute top-0 left-0 z-10"
+              style={{
+                fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
+                color: "#1e293b",
+                WebkitTextStroke: "12px #1e293b", 
+              }}
+            >
+              門市AI機器人入口
+            </h1>
+            
+            {/* Inner white stroke (sticker white border) */}
+            <h1 
+              className="text-5xl md:text-7xl tracking-wider absolute top-0 left-0 z-20"
+              style={{
+                fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
+                color: "#ffffff",
+                WebkitTextStroke: "8px #ffffff",
+              }}
+            >
+              門市AI機器人入口
+            </h1>
+
+            {/* Actual text fill */}
+            <h1 
+              className="text-5xl md:text-7xl tracking-wider relative z-30"
+              style={{
+                fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
+                color: "#1e293b", // Slate 800
+              }}
+            >
+              門市AI機器人入口
+            </h1>
+          </div>
+
           <p className="text-lg text-slate-600 max-w-2xl">
             提供各式 AI 小助手，涵蓋營運管理、美容服務、銷售技巧等工作場景。
           </p>
