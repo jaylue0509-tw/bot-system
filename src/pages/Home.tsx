@@ -74,49 +74,12 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-12 flex flex-col gap-10">
       
       {/* Header & Hero */}
-      <header className="flex flex-col items-center justify-center text-center mt-8 mb-6 relative">
+      <header className="flex flex-col items-center justify-center text-center mt-8 mb-6">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="relative inline-block mb-4 mt-4">
-            
-            <h1 
-              className="text-5xl md:text-7xl font-black tracking-widest relative z-10 uppercase"
-              style={{
-                fontFamily: "'ChenYuluoyan', sans-serif",
-                color: "#ffffff", // 白字
-                WebkitTextStroke: "3px #000000", // 黑邊框
-                paintOrder: "stroke fill",
-                letterSpacing: "0.1em",
-                textShadow: `
-                  1px 1px 0 #14b8a6,
-                  2px 2px 0 #14b8a6,
-                  3px 3px 0 #14b8a6,
-                  4px 4px 0 #14b8a6,
-                  5px 5px 0 #14b8a6,
-                  6px 6px 0 #14b8a6,
-                  7px 7px 0 #14b8a6,
-                  8px 8px 0 #14b8a6,
-                  9px 9px 0 #14b8a6,
-                  10px 10px 0 #14b8a6
-                `
-              }}
-            >
-              門市AI機器人入口
-            </h1>
-            
-            {/* 重複疊加一層無邊框的白字，確保在某些瀏覽器上黑邊不會吃掉白字 */}
-            <h1 
-              className="text-5xl md:text-7xl font-black tracking-widest absolute top-0 left-0 z-20 pointer-events-none uppercase"
-              style={{
-                fontFamily: "'ChenYuluoyan', sans-serif",
-                color: "#ffffff",
-                letterSpacing: "0.1em"
-              }}
-            >
-              門市AI機器人入口
-            </h1>
-
-          </div>
-          <p className="text-lg text-slate-600 max-w-2xl mt-4 font-bold">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+            門市 AI 機器人入口
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl">
             提供各式 AI 小助手，涵蓋營運管理、美容服務、銷售技巧等工作場景。
           </p>
         </motion.div>
