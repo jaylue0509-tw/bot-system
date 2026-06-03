@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Search, ChevronRight, BarChart3, Scissors, ShoppingBag, PenTool, MessageSquare, Bot, Star } from 'lucide-react';
 import { GlassCard } from '@/src/lib/utils';
 import { motion } from 'motion/react';
+import { supabase } from '../supabase';
 
 // Map icon strings from DB to Lucide component
 const iconsMap: Record<string, any> = {
@@ -24,13 +25,21 @@ export default function Home() {
     async function fetchData() {
       try {
         const [botsRes, catRes] = await Promise.all([
-          fetch('/api/bots'),
-          fetch('/api/categories')
+          supabase.from('ai_bots').select(`*, categories(name)`).order('click_count', { ascending: false }),
+          supabase.from('categories').select('*').order('sort_order', { ascending: true })
         ]);
-        const botsData = await botsRes.json();
-        const catData = await catRes.json();
-        setBots(botsData);
-        setCategories(catData);
+        
+        if (botsRes.data) {
+          // Map to attach category_name for UI compatibility
+          const mappedBots = botsRes.data.map(bot => ({
+            ...bot,
+            category_name: bot.categories?.name
+          }));
+          setBots(mappedBots);
+        }
+        if (catRes.data) {
+          setCategories(catRes.data);
+        }
       } catch (err) {
         console.error('Failed to fetch data', err);
       } finally {
@@ -40,10 +49,11 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const handleBotClick = async (botId: string, targetUrl: string) => {
+  const handleBotClick = async (botId: string, targetUrl: string, currentClicks: number) => {
     try {
       // Record click
-      await fetch(`/api/bots/${botId}/click`, { method: 'POST' });
+      await supabase.from('ai_bots').update({ click_count: currentClicks + 1 }).eq('id', botId);
+      await supabase.from('click_logs').insert([{ bot_id: botId }]);
     } catch (err) {
       console.error('Click logging failed', err);
     }
@@ -182,7 +192,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredBots.slice(0, 3).map((bot, index) => (
-              <BotCard key={bot.id} bot={bot} onClick={() => handleBotClick(bot.id, bot.target_url)} delay={index * 0.1} />
+              <BotCard key={bot.id} bot={bot} onClick={() => handleBotClick(bot.id, bot.target_url, bot.click_count || 0)} delay={index * 0.1} />
             ))}
           </div>
         </section>
@@ -213,7 +223,7 @@ export default function Home() {
         ) : filteredBots.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredBots.map((bot, index) => (
-              <BotCard key={bot.id} bot={bot} onClick={() => handleBotClick(bot.id, bot.target_url)} delay={index * 0.05} />
+              <BotCard key={bot.id} bot={bot} onClick={() => handleBotClick(bot.id, bot.target_url, bot.click_count || 0)} delay={index * 0.05} />
             ))}
           </div>
         ) : (

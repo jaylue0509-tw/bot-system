@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { GlassCard } from '@/src/lib/utils';
 import { Download, Users, MousePointerClick, TrendingUp, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { supabase } from '../supabase';
 
 export default function AdminDashboard() {
   const [data, setData] = useState<any>(null);
@@ -17,22 +18,32 @@ export default function AdminDashboard() {
     }
 
     async function fetchDashboard() {
-      const token = localStorage.getItem('adminToken');
       try {
-        const res = await fetch('/api/admin/dashboard', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        const { count: totalClicks } = await supabase.from('click_logs').select('*', { count: 'exact', head: true });
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const { count: todayClicks } = await supabase.from('click_logs').select('*', { count: 'exact', head: true }).gte('clicked_at', today.toISOString());
+
+        const { data: botsRank } = await supabase.from('ai_bots').select('name, click_count').order('click_count', { ascending: false }).limit(5);
+
+        const { data: allBots } = await supabase.from('ai_bots').select('creator, click_count');
+        const creatorMap: Record<string, number> = {};
+        allBots?.forEach(b => {
+          if (!b.creator) return;
+          if (!creatorMap[b.creator]) creatorMap[b.creator] = 0;
+          creatorMap[b.creator] += (b.click_count || 0);
         });
-        if (res.status === 401) {
-          localStorage.removeItem('adminToken');
-          navigate('/admin/login');
-          return;
-        }
-        if (res.ok) {
-          const json = await res.json();
-          setData(json);
-        }
+        const creatorRank = Object.entries(creatorMap)
+          .map(([creator, total_clicks]) => ({ creator, total_clicks }))
+          .sort((a, b) => b.total_clicks - a.total_clicks)
+          .slice(0, 5);
+
+        setData({
+          kpi: { totalClicks: totalClicks || 0, todayClicks: todayClicks || 0 },
+          botsRank,
+          creatorRank
+        });
       } catch (err) {
         console.error('Failed to parse dashboard data', err);
       } finally {
@@ -50,9 +61,25 @@ export default function AdminDashboard() {
     );
   }
 
-  const handleDownload = () => {
-    const token = localStorage.getItem('adminToken');
-    window.open(`/api/admin/reports/clicks.xlsx?token=${token}`, '_blank');
+  const handleDownload = async () => {
+    // Generate CSV in browser
+    try {
+      const { data } = await supabase.from('ai_bots').select('name, categories(name), ai_platform, creator, click_count, target_url').order('click_count', { ascending: false });
+      if (!data) return;
+      
+      const csvHeader = '機器人名稱,分類,使用平台,創作者,總點擊數,目標連結\n';
+      const csvRows = data.map(b => `${b.name},${b.categories?.name || ''},${b.ai_platform},${b.creator},${b.click_count},${b.target_url}`).join('\n');
+      const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csvHeader + csvRows], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bot_clicks_report.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert('下載失敗');
+    }
   };
 
   return (

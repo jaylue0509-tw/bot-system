@@ -15,20 +15,15 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json();
-      if (res.ok && data.token) {
-        localStorage.setItem('adminToken', data.token);
+      // 簡易本地驗證 (因為是靜態網頁，為了方便直接寫死，若要完全安全需改用 Supabase Auth)
+      if (username === 'admin' && password === 'admin') {
+        localStorage.setItem('adminToken', 'dummy_token');
         navigate('/admin/dashboard');
       } else {
-        alert(data.error || '帳號或密碼錯誤');
+        alert('帳號或密碼錯誤 (預設為 admin / admin)');
       }
     } catch (err) {
-      alert('無法連線到伺服器');
+      alert('登入發生錯誤');
     } finally {
       setIsLoading(false);
     }
