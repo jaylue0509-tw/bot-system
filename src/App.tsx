@@ -10,10 +10,11 @@ import Login from './pages/Login';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#f0f9ff] font-sans text-slate-800 selection:bg-indigo-200 relative overflow-x-hidden">
-      {/* Dynamic Background Elements */}
-      <div className="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vh] bg-blue-200/40 rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vh] bg-white/60 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    <div className="min-h-screen font-sans text-slate-800 selection:bg-amber-200 relative overflow-x-hidden bg-[#7DD3FC]">
+      {/* Sky pattern */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-50" style={{ backgroundImage: 'radial-gradient(#bae6fd 4px, transparent 4px)', backgroundSize: '32px 32px' }}></div>
+      {/* Ground/Grass */}
+      <div className="fixed bottom-0 w-full h-[15vh] bg-[#86efac] border-t-[6px] border-slate-800 z-0"></div>
       
       <div className="relative z-10 min-h-screen">
         <BrowserRouter>

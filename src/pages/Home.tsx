@@ -87,46 +87,30 @@ export default function Home() {
       <header className="flex flex-col items-center justify-center text-center mt-8 mb-6">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           
-          <div className="relative inline-block mt-4 mb-8">
-            {/* Outer stroke (sticker edge) & Gray Shadow */}
-            <h1 
-              className="text-5xl md:text-7xl tracking-wider absolute top-0 left-0 z-10"
-              style={{
-                fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
-                color: "#1e293b",
-                WebkitTextStroke: "12px #1e293b", 
-                textShadow: "6px 8px 0px #9ca3af", /* 灰色文字陰影 */
-              }}
-            >
-              門市AI機器人入口
-            </h1>
+          <div className="relative inline-block mt-4 mb-8 group">
+            {/* Dark background resembling the cat hat silhouette */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[140%] bg-slate-800 rounded-[3rem] -z-10 group-hover:scale-105 transition-transform duration-300">
+               {/* Cat ears on the background box */}
+               <div className="absolute -top-6 left-10 w-16 h-16 bg-slate-800 rotate-45 rounded-xl"></div>
+               <div className="absolute -top-6 right-10 w-16 h-16 bg-slate-800 rotate-45 rounded-xl"></div>
+            </div>
             
-            {/* Inner white stroke (sticker white border) */}
+            {/* Title Text */}
             <h1 
-              className="text-5xl md:text-7xl tracking-wider absolute top-0 left-0 z-20"
+              className="text-5xl md:text-7xl tracking-widest relative z-30 font-black drop-shadow-[4px_4px_0px_#f59e0b] text-white"
               style={{
                 fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
-                color: "#ffffff",
-                WebkitTextStroke: "8px #ffffff",
               }}
             >
-              門市AI機器人入口
+              <span className="text-white">NEKO</span> <span className="text-amber-500">STATION</span>
             </h1>
-
-            {/* Actual text fill */}
-            <h1 
-              className="text-5xl md:text-7xl tracking-wider relative z-30"
-              style={{
-                fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
-                color: "#1e293b", // Slate 800
-              }}
-            >
-              門市AI機器人入口
-            </h1>
+            <h2 className="text-xl font-bold text-center text-white mt-2 relative z-30 tracking-widest bg-slate-800 inline-block px-4 py-1 rounded-full border-2 border-white">
+               門市 AI 機器人入口
+            </h2>
           </div>
 
-          <p className="text-lg text-slate-600 max-w-2xl">
-            提供各式 AI 小助手，涵蓋營運管理、美容服務、銷售技巧等工作場景。
+          <p className="text-lg font-bold text-slate-800 max-w-2xl bg-white/90 px-6 py-2 rounded-full border-4 border-slate-800 shadow-[4px_4px_0px_#1e293b] mx-auto mt-6">
+            提供各式 AI 小助手，涵蓋營運管理、美容服務等工作場景🐾
           </p>
         </motion.div>
 
@@ -138,11 +122,11 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-slate-400" />
+            <Search className="h-6 w-6 text-slate-800 stroke-[3px]" />
           </div>
           <input
             type="text"
-            className="w-full pl-12 pr-4 py-4 rounded-full bg-white/40 backdrop-blur-xl border border-white/60 shadow-xl shadow-blue-900/5 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/80 transition-all text-slate-700 placeholder-slate-400 tracking-wide"
+            className="w-full pl-14 pr-4 py-4 rounded-full bg-white border-4 border-slate-800 shadow-[6px_6px_0px_#1e293b] focus:outline-none focus:translate-y-1 focus:shadow-[2px_2px_0px_#1e293b] transition-all text-slate-800 placeholder-slate-400 font-bold text-lg"
             placeholder="搜尋 AI 機器人、用途、創作者..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -155,15 +139,15 @@ export default function Home() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={() => setActiveCategory(null)}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${activeCategory === null ? 'bg-indigo-500 text-white shadow-md shadow-indigo-200' : 'bg-white/50 hover:bg-white/80 text-slate-600 border border-white/60 backdrop-blur-md'}`}
+            className={`px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${activeCategory === null ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
           >
-            全部機器人
+            全部機器喵
           </button>
           <button
             onClick={() => setActiveCategory('top5')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${activeCategory === 'top5' ? 'bg-indigo-500 text-white shadow-md shadow-indigo-200' : 'bg-white/50 hover:bg-white/80 text-slate-600 border border-white/60 backdrop-blur-md'}`}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${activeCategory === 'top5' ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
           >
-            <Star className="w-4 h-4" />
+            <Star className="w-5 h-5 fill-current" />
             Top 5 最受歡迎
           </button>
           {categories.map((cat) => {
@@ -173,9 +157,9 @@ export default function Home() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${isActive ? 'bg-indigo-500 text-white shadow-md shadow-indigo-200' : 'bg-white/50 hover:bg-white/80 text-slate-600 border border-white/60 backdrop-blur-md'}`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${isActive ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-5 h-5 stroke-[3px]" />
                 {cat.name}
               </button>
             )
@@ -200,45 +184,46 @@ export default function Home() {
 
       {/* Main Bot Grid */}
       <section className="mb-20">
-        <div className="flex items-center justify-between mb-6 px-2">
-          <h2 className="text-xl font-bold text-slate-800">
-            {activeCategory === 'top5' ? 'Top 5 最受歡迎機器人' : '所有機器人'}
+        <div className="flex items-center justify-between mb-8 px-2 bg-white border-4 border-slate-800 rounded-2xl py-3 px-6 shadow-[4px_4px_0px_#1e293b] max-w-max">
+          <h2 className="text-2xl font-black text-slate-800 flex items-center gap-2">
+            <PawPrint className="w-6 h-6 text-amber-500" />
+            {activeCategory === 'top5' ? 'Top 5 最受歡迎機器喵' : '所有機器喵'}
           </h2>
-          <span className="text-sm text-slate-500">共 {filteredBots.length} 個</span>
+          <span className="text-sm font-bold text-white bg-slate-800 px-3 py-1 rounded-full ml-4">共 {filteredBots.length} 喵</span>
         </div>
         
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <GlassCard key={i} className="animate-pulse h-64 flex flex-col justify-between">
+              <div key={i} className="bg-white border-4 border-slate-800 rounded-3xl p-6 shadow-[6px_6px_0px_#1e293b] animate-pulse h-64 flex flex-col justify-between">
                 <div>
-                  <div className="w-14 h-14 bg-slate-200/50 rounded-2xl mb-6"></div>
-                  <div className="h-6 bg-slate-200/50 rounded-md w-3/4 mb-3"></div>
-                  <div className="h-4 bg-slate-200/50 rounded-md w-full mb-2"></div>
-                  <div className="h-4 bg-slate-200/50 rounded-md w-5/6"></div>
+                  <div className="w-14 h-14 bg-slate-200 rounded-2xl mb-6 border-2 border-slate-300"></div>
+                  <div className="h-6 bg-slate-200 rounded-md w-3/4 mb-3"></div>
+                  <div className="h-4 bg-slate-200 rounded-md w-full mb-2"></div>
+                  <div className="h-4 bg-slate-200 rounded-md w-5/6"></div>
                 </div>
-              </GlassCard>
+              </div>
             ))}
           </div>
         ) : filteredBots.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredBots.map((bot, index) => (
               <BotCard key={bot.id} bot={bot} onClick={() => handleBotClick(bot.id, bot.target_url, bot.click_count || 0)} delay={index * 0.05} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white/40 rounded-3xl border border-white/50">
-            <Cat className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-slate-500">找不到符合條件的機器喵</p>
+          <div className="text-center py-16 bg-white rounded-3xl border-4 border-slate-800 shadow-[8px_8px_0px_#1e293b]">
+            <Cat className="w-16 h-16 text-slate-400 mx-auto mb-4 stroke-[3px]" />
+            <p className="text-xl font-black text-slate-600">找不到符合條件的機器喵</p>
           </div>
         )}
       </section>
 
-      {/* Footer / Admin Link */}
-      <footer className="text-center pb-8 border-t border-slate-200/50 pt-8 flexjustify-center text-sm text-slate-500">
-        <div className="flex justify-center gap-4">
-           <span>門市 AI 機器人導覽平台</span>
-           <Link to="/admin/login" className="text-blue-500 hover:underline">管理員登入</Link>
+      <footer className="text-center pb-8 pt-12 flex justify-center text-sm font-bold text-slate-800">
+        <div className="flex justify-center items-center gap-4 bg-white border-4 border-slate-800 rounded-full px-8 py-3 shadow-[4px_4px_0px_#1e293b]">
+           <span>NEKO STATION 導覽平台</span>
+           <span className="text-slate-300">|</span>
+           <Link to="/admin/login" className="text-indigo-600 hover:text-amber-500 transition-colors">管理員登入</Link>
         </div>
       </footer>
     </div>
@@ -253,43 +238,43 @@ const BotCard: React.FC<{ bot: any, onClick: () => void | Promise<void>, delay?:
       transition={{ duration: 0.4, delay }}
       className="h-full"
     >
-      <GlassCard className="h-full flex flex-col justify-between cursor-pointer relative overflow-hidden group" onClick={onClick}>
+      <div className="bg-white h-full flex flex-col justify-between cursor-pointer relative overflow-hidden group p-6 rounded-[2rem] border-4 border-slate-800 shadow-[6px_6px_0px_#1e293b] hover:-translate-y-2 hover:shadow-[12px_12px_0px_#1e293b] transition-all" onClick={onClick}>
         {/* 背景裝飾貓掌印 */}
-        <PawPrint className="absolute -bottom-4 -right-4 w-32 h-32 text-indigo-50/50 -rotate-12 transition-transform group-hover:scale-110 group-hover:rotate-0" />
+        <PawPrint className="absolute -bottom-4 -right-4 w-32 h-32 text-slate-100 -rotate-12 transition-transform group-hover:scale-110 group-hover:rotate-0 group-hover:text-amber-100" />
         
         <div className="relative z-10">
           <div className="flex items-start justify-between mb-6">
-            <div className="w-14 h-14 bg-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100 group-hover:scale-105 transition-transform shrink-0 relative">
-               <Cat className="w-8 h-8" />
+            <div className="w-16 h-16 bg-slate-800 rounded-[1.25rem] flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:rotate-6 transition-transform shrink-0 relative border-4 border-slate-800">
+               <Cat className="w-10 h-10 stroke-[2.5px]" />
                {/* 貓耳朵裝飾 (純CSS) */}
-               <div className="absolute -top-1.5 left-2 w-3 h-3 bg-indigo-500 rotate-45 rounded-sm -z-10"></div>
-               <div className="absolute -top-1.5 right-2 w-3 h-3 bg-indigo-500 rotate-45 rounded-sm -z-10"></div>
+               <div className="absolute -top-2 left-2 w-4 h-4 bg-slate-800 rotate-45 rounded-sm -z-10"></div>
+               <div className="absolute -top-2 right-2 w-4 h-4 bg-slate-800 rotate-45 rounded-sm -z-10"></div>
             </div>
             <div className="flex flex-wrap gap-2 text-right">
-               <span className="px-3 py-1 bg-slate-100/50 text-slate-500 rounded-full text-[10px] font-bold uppercase tracking-wider">{bot.category_name || '未分類'}</span>
+               <span className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs font-black uppercase tracking-widest border-2 border-slate-200 group-hover:border-amber-300 group-hover:bg-amber-100 group-hover:text-amber-700 transition-colors">{bot.category_name || '未分類'}</span>
             </div>
           </div>
           
-          <h3 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition-colors">
+          <h3 className="text-2xl font-black text-slate-800 mb-3 group-hover:text-amber-600 transition-colors tracking-wide">
             {bot.name}
           </h3>
           
-          <p className="text-slate-500 leading-relaxed text-sm">
+          <p className="text-slate-600 font-bold leading-relaxed text-sm">
             {bot.summary}
           </p>
           
-          <div className="mt-4 flex flex-wrap gap-2">
-            <span className="px-3 py-1 bg-indigo-100/50 text-indigo-600 rounded-full text-[10px] font-bold uppercase tracking-wider">平台: {bot.ai_platform}</span>
-            <span className="px-3 py-1 bg-emerald-100/50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">創作者: {bot.creator}</span>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <span className="px-3 py-1.5 bg-sky-100 text-sky-700 rounded-full text-[10px] font-black uppercase tracking-widest border-2 border-sky-200">平台: {bot.ai_platform}</span>
+            <span className="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border-2 border-emerald-200">創作者: {bot.creator}</span>
           </div>
           {bot.target_url && (
-            <div className="mt-4 break-all">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">使用網址</span>
+            <div className="mt-5 break-all">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">使用網址</span>
               <a 
                 href={bot.target_url} 
                 target="_blank" 
                 rel="noreferrer" 
-                className="text-xs text-blue-500 hover:text-blue-700 hover:underline"
+                className="text-xs font-bold text-blue-500 hover:text-amber-500 hover:underline"
                 onClick={(e) => e.stopPropagation()}
               >
                 {bot.target_url}
@@ -298,16 +283,16 @@ const BotCard: React.FC<{ bot: any, onClick: () => void | Promise<void>, delay?:
           )}
         </div>
         
-        <div className="flex items-center justify-between mt-8">
+        <div className="flex items-center justify-between mt-8 relative z-10 pt-4 border-t-4 border-dashed border-slate-200">
           <div className="flex flex-col">
-             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">總點擊數</span>
-             <span className="text-2xl font-mono font-bold text-slate-700">{bot.click_count || 0}</span>
+             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">總搭乘次數</span>
+             <span className="text-3xl font-black text-slate-800">{bot.click_count || 0}</span>
           </div>
-          <button className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-500 shadow-md border border-indigo-50 group-hover:scale-105 transition-transform">
-            <ChevronRight className="w-6 h-6" />
+          <button className="w-14 h-14 bg-amber-400 rounded-full flex items-center justify-center text-slate-900 border-4 border-slate-800 shadow-[2px_2px_0px_#1e293b] group-hover:bg-amber-300 group-hover:scale-110 transition-transform">
+            <ChevronRight className="w-8 h-8 stroke-[3px]" />
           </button>
         </div>
-      </GlassCard>
+      </div>
     </motion.div>
   );
 }
