@@ -14,7 +14,7 @@ dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 import { parse } from 'csv-parse/sync';
 
