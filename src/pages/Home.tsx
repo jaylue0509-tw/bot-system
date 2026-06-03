@@ -81,8 +81,13 @@ export default function Home() {
   const featuredBots = useMemo(() => bots.filter(b => b.is_featured), [bots]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-12 flex flex-col gap-6">
+    <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-12 flex flex-col gap-6 relative">
       
+      {/* Top Left Cat Image Attachment */}
+      <div className="absolute top-2 left-2 md:top-8 md:left-8 z-50">
+         <img src="/cat.png" alt="Cute Cat" className="w-24 md:w-40 h-auto drop-shadow-xl hover:rotate-12 hover:scale-110 transition-transform origin-bottom-left cursor-pointer" />
+      </div>
+
       {/* Header & Hero */}
       <header className="flex flex-col items-center justify-center text-center mt-2 mb-2">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

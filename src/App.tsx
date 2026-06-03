@@ -10,11 +10,15 @@ import Login from './pages/Login';
 
 export default function App() {
   return (
-    <div className="min-h-screen font-sans text-slate-800 selection:bg-amber-200 relative overflow-x-hidden bg-[#7DD3FC]">
-      {/* Sky pattern */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-50" style={{ backgroundImage: 'radial-gradient(#bae6fd 4px, transparent 4px)', backgroundSize: '32px 32px' }}></div>
-      {/* Ground/Grass */}
-      <div className="fixed bottom-0 w-full h-[15vh] bg-[#86efac] border-t-[6px] border-slate-800 z-0"></div>
+    <div className="min-h-screen font-sans text-slate-800 selection:bg-amber-200 relative overflow-x-hidden bg-[#FFFDF5]">
+      {/* Daisy pattern */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 opacity-80" 
+        style={{ 
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg transform='translate(40, 40)'%3E%3Ccircle cx='0' cy='-8' r='4' fill='%23ffffff' /%3E%3Ccircle cx='0' cy='8' r='4' fill='%23ffffff' /%3E%3Ccircle cx='-8' cy='0' r='4' fill='%23ffffff' /%3E%3Ccircle cx='8' cy='0' r='4' fill='%23ffffff' /%3E%3Ccircle cx='-6' cy='-6' r='4' fill='%23ffffff' /%3E%3Ccircle cx='6' cy='6' r='4' fill='%23ffffff' /%3E%3Ccircle cx='-6' cy='6' r='4' fill='%23ffffff' /%3E%3Ccircle cx='6' cy='-6' r='4' fill='%23ffffff' /%3E%3Ccircle cx='0' cy='0' r='4.5' fill='%23FCD34D' /%3E%3C/g%3E%3C/svg%3E")`, 
+          backgroundSize: '80px 80px' 
+        }}
+      ></div>
       
       <div className="relative z-10 min-h-screen">
         <BrowserRouter>
