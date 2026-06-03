@@ -102,11 +102,8 @@ export default function Home() {
                 fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
               }}
             >
-              <span className="text-white">NEKO</span> <span className="text-amber-500">STATION</span>
+              門市AI機器人入口
             </h1>
-            <h2 className="text-xl font-bold text-center text-white mt-2 relative z-30 tracking-widest bg-slate-800 inline-block px-4 py-1 rounded-full border-2 border-white">
-               門市 AI 機器人入口
-            </h2>
           </div>
 
           <p className="text-lg font-bold text-slate-800 max-w-2xl bg-white/90 px-6 py-2 rounded-full border-4 border-slate-800 shadow-[4px_4px_0px_#1e293b] mx-auto mt-6">
@@ -221,7 +218,7 @@ export default function Home() {
 
       <footer className="text-center pb-8 pt-12 flex justify-center text-sm font-bold text-slate-800">
         <div className="flex justify-center items-center gap-4 bg-white border-4 border-slate-800 rounded-full px-8 py-3 shadow-[4px_4px_0px_#1e293b]">
-           <span>NEKO STATION 導覽平台</span>
+           <span>門市 AI 機器人導覽平台</span>
            <span className="text-slate-300">|</span>
            <Link to="/admin/login" className="text-indigo-600 hover:text-amber-500 transition-colors">管理員登入</Link>
         </div>
