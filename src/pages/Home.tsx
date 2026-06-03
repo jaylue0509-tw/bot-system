@@ -85,7 +85,7 @@ export default function Home() {
       
       {/* Top Left Cat Image Attachment */}
       <div className="absolute top-2 left-2 md:top-8 md:left-8 z-50">
-         <img src="/cat.png" alt="Cute Cat" className="w-24 md:w-40 h-auto drop-shadow-xl hover:rotate-12 hover:scale-110 transition-transform origin-bottom-left cursor-pointer" />
+         <img src={`${import.meta.env.BASE_URL}cat.png`} alt="Cute Cat" className="w-24 md:w-40 h-auto drop-shadow-xl hover:rotate-12 hover:scale-110 transition-transform origin-bottom-left cursor-pointer" />
       </div>
 
       {/* Header & Hero */}
