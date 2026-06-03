@@ -81,23 +81,23 @@ export default function Home() {
   const featuredBots = useMemo(() => bots.filter(b => b.is_featured), [bots]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-12 flex flex-col gap-10">
+    <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-12 flex flex-col gap-6">
       
       {/* Header & Hero */}
-      <header className="flex flex-col items-center justify-center text-center mt-8 mb-6">
+      <header className="flex flex-col items-center justify-center text-center mt-2 mb-2">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           
-          <div className="relative inline-block mt-4 mb-8 group">
+          <div className="relative inline-block mt-2 mb-4 group">
             {/* Dark background resembling the cat hat silhouette */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[140%] bg-slate-800 rounded-[3rem] -z-10 group-hover:scale-105 transition-transform duration-300">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] h-[125%] bg-slate-800 rounded-[2.5rem] -z-10 group-hover:scale-105 transition-transform duration-300">
                {/* Cat ears on the background box */}
-               <div className="absolute -top-6 left-10 w-16 h-16 bg-slate-800 rotate-45 rounded-xl"></div>
-               <div className="absolute -top-6 right-10 w-16 h-16 bg-slate-800 rotate-45 rounded-xl"></div>
+               <div className="absolute -top-4 left-8 w-10 h-10 bg-slate-800 rotate-45 rounded-lg"></div>
+               <div className="absolute -top-4 right-8 w-10 h-10 bg-slate-800 rotate-45 rounded-lg"></div>
             </div>
             
             {/* Title Text */}
             <h1 
-              className="text-5xl md:text-7xl tracking-widest relative z-30 font-black drop-shadow-[4px_4px_0px_#f59e0b] text-white"
+              className="text-4xl md:text-5xl tracking-widest relative z-30 font-black drop-shadow-[3px_3px_0px_#f59e0b] text-white"
               style={{
                 fontFamily: "'ZCOOL KuaiLe', 'Comic Sans MS', cursive",
               }}
@@ -106,24 +106,24 @@ export default function Home() {
             </h1>
           </div>
 
-          <p className="text-lg font-bold text-slate-800 max-w-2xl bg-white/90 px-6 py-2 rounded-full border-4 border-slate-800 shadow-[4px_4px_0px_#1e293b] mx-auto mt-6">
+          <p className="text-sm font-bold text-slate-800 max-w-2xl bg-white/90 px-5 py-1.5 rounded-full border-4 border-slate-800 shadow-[3px_3px_0px_#1e293b] mx-auto mt-2">
             提供各式 AI 小助手，涵蓋營運管理、美容服務等工作場景🐾
           </p>
         </motion.div>
 
         {/* Search */}
         <motion.div 
-          className="w-full max-w-2xl mt-8 relative"
+          className="w-full max-w-xl mt-4 relative"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Search className="h-6 w-6 text-slate-800 stroke-[3px]" />
+            <Search className="h-5 w-5 text-slate-800 stroke-[3px]" />
           </div>
           <input
             type="text"
-            className="w-full pl-14 pr-4 py-4 rounded-full bg-white border-4 border-slate-800 shadow-[6px_6px_0px_#1e293b] focus:outline-none focus:translate-y-1 focus:shadow-[2px_2px_0px_#1e293b] transition-all text-slate-800 placeholder-slate-400 font-bold text-lg"
+            className="w-full pl-12 pr-4 py-2.5 rounded-full bg-white border-4 border-slate-800 shadow-[4px_4px_0px_#1e293b] focus:outline-none focus:translate-y-[2px] focus:shadow-[2px_2px_0px_#1e293b] transition-all text-slate-800 placeholder-slate-400 font-bold text-base"
             placeholder="搜尋 AI 機器人、用途、創作者..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -133,18 +133,18 @@ export default function Home() {
 
       {/* Categories */}
       <section>
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <button
             onClick={() => setActiveCategory(null)}
-            className={`px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${activeCategory === null ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
+            className={`px-4 py-2 rounded-full text-xs font-black tracking-widest transition-all border-[3px] border-slate-800 ${activeCategory === null ? 'bg-amber-400 text-slate-900 shadow-[3px_3px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[3px_3px_0px_#1e293b] hover:-translate-y-0.5'}`}
           >
             全部機器喵
           </button>
           <button
             onClick={() => setActiveCategory('top5')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${activeCategory === 'top5' ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-black tracking-widest transition-all border-[3px] border-slate-800 ${activeCategory === 'top5' ? 'bg-amber-400 text-slate-900 shadow-[3px_3px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[3px_3px_0px_#1e293b] hover:-translate-y-0.5'}`}
           >
-            <Star className="w-5 h-5 fill-current" />
+            <Star className="w-4 h-4 fill-current" />
             Top 5 最受歡迎
           </button>
           {categories.map((cat) => {
@@ -154,9 +154,9 @@ export default function Home() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black tracking-widest transition-all border-4 border-slate-800 ${isActive ? 'bg-amber-400 text-slate-900 shadow-[4px_4px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[4px_4px_0px_#1e293b] hover:-translate-y-0.5'}`}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-black tracking-widest transition-all border-[3px] border-slate-800 ${isActive ? 'bg-amber-400 text-slate-900 shadow-[3px_3px_0px_#1e293b] translate-y-0' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-[3px_3px_0px_#1e293b] hover:-translate-y-0.5'}`}
               >
-                <Icon className="w-5 h-5 stroke-[3px]" />
+                <Icon className="w-4 h-4 stroke-[3px]" />
                 {cat.name}
               </button>
             )
