@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ChevronRight, BarChart3, Scissors, ShoppingBag, PenTool, MessageSquare, Bot, Star } from 'lucide-react';
+import { Search, ChevronRight, BarChart3, Scissors, ShoppingBag, PenTool, MessageSquare, Bot, Star, Cat, PawPrint } from 'lucide-react';
 import { GlassCard } from '@/src/lib/utils';
 import { motion } from 'motion/react';
 import { supabase } from '../supabase';
@@ -228,8 +228,8 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-center py-16 bg-white/40 rounded-3xl border border-white/50">
-            <Bot className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-slate-500">找不到符合條件的機器人</p>
+            <Cat className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+            <p className="text-slate-500">找不到符合條件的機器喵</p>
           </div>
         )}
       </section>
@@ -253,11 +253,17 @@ const BotCard: React.FC<{ bot: any, onClick: () => void | Promise<void>, delay?:
       transition={{ duration: 0.4, delay }}
       className="h-full"
     >
-      <GlassCard className="h-full flex flex-col justify-between cursor-pointer" onClick={onClick}>
-        <div>
+      <GlassCard className="h-full flex flex-col justify-between cursor-pointer relative overflow-hidden group" onClick={onClick}>
+        {/* 背景裝飾貓掌印 */}
+        <PawPrint className="absolute -bottom-4 -right-4 w-32 h-32 text-indigo-50/50 -rotate-12 transition-transform group-hover:scale-110 group-hover:rotate-0" />
+        
+        <div className="relative z-10">
           <div className="flex items-start justify-between mb-6">
-            <div className="w-14 h-14 bg-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100 group-hover:scale-105 transition-transform shrink-0">
-               <Bot className="w-8 h-8" />
+            <div className="w-14 h-14 bg-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100 group-hover:scale-105 transition-transform shrink-0 relative">
+               <Cat className="w-8 h-8" />
+               {/* 貓耳朵裝飾 (純CSS) */}
+               <div className="absolute -top-1.5 left-2 w-3 h-3 bg-indigo-500 rotate-45 rounded-sm -z-10"></div>
+               <div className="absolute -top-1.5 right-2 w-3 h-3 bg-indigo-500 rotate-45 rounded-sm -z-10"></div>
             </div>
             <div className="flex flex-wrap gap-2 text-right">
                <span className="px-3 py-1 bg-slate-100/50 text-slate-500 rounded-full text-[10px] font-bold uppercase tracking-wider">{bot.category_name || '未分類'}</span>
